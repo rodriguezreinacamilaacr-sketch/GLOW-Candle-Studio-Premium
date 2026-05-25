@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GLOW | pause. breathe. glow</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --blanco: #ffffff;
+            --negro: #1a1a1a;
+            --naranja-pastel: #D4BAA3; /* Naranja pastel apagado */
+            --gris-claro: #f4f4f4;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--negro);
+            background-color: var(--blanco);
+            line-height: 1.6;
+        }
+
+        /* --- NAVEGACIÓN --- */
+        nav {
+            background: var(--blanco);
+            border-bottom: 1px solid var(--naranja-pastel);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            margin: 0;
+        }
+
+        .nav-links li { position: relative; }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--negro);
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover { color: var(--naranja-pastel); }
+
+        /* Submenú */
+        .submenu {
+            display: none;
+            position: absolute;
+            background: var(--blanco);
+            border: 1px solid var(--naranja-pastel);
+            top: 100%;
+            left: 0;
+            padding: 10px;
+            min-width: 150px;
+        }
+
+        .nav-links li:hover .submenu { display: block; }
+
+        .submenu li { padding: 5px 0; }
+
+        /* --- SECCIONES --- */
+        section { padding: 80px 10%; }
+
+        h2 {
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 40px;
+        }
+
+        /* --- CATÁLOGO --- */
+        .grid-productos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            border: 1px solid var(--gris-claro);
+            padding: 15px;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .card:hover { border-color: var(--naranja-pastel); }
+
+        .card img { width: 100%; height: auto; background: var(--gris-claro); }
+
+        .btn-comprar {
+            background: var(--negro);
+            color: var(--blanco);
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .btn-comprar:hover { background: var(--naranja-pastel); }
+
+        /* --- GUÍA DE USO (Galería con Explicación) --- */
+        .uso-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .uso-item {
+            flex: 1;
+            min-width: 300px;
+            background: var(--naranja-pastel);
+            padding: 20px;
+            color: var(--blanco);
+        }
+
+        /* --- GALERÍA DE VIDEOS --- */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .video-placeholder {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* --- FORMULARIO & CARRITO --- */
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        input, textarea {
+            padding: 12px;
+            border: 1px solid var(--naranja-pastel);
+        }
+
+        .carrito-float {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--naranja-pastel);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        footer {
+            background: var(--negro);
+            color: var(--blanco);
+            text-align: center;
+            padding: 40px;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Menú -->
+    <nav>
+        <div class="logo">GLOW</div>
+        <ul class="nav-links">
+            <li><a href="#catalogo">Catálogo</a>
+                <ul class="submenu">
+                    <li><a href="#">Velas Aromáticas</a></li>
+                    <li><a href="#">Edición Limitada</a></li>
+                    <li><a href="#">Accesorios</a></li>
+                </ul>
+            </li>
+            <li><a href="#uso">¿Cómo usar?</a></li>
+            <li><a href="#videos">Galería</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+        </ul>
+    </nav>
+
+    <!-- Catálogo de Compras -->
+    <section id="catalogo">
+        <h2>Colección de Velas</h2>
+        <div class="grid-productos">
+            <div class="card">
+                <div style="height: 200px; background: #f9f9f9; margin-bottom: 10px;"></div>
+                <h3>Vela Lavender Zen</h3>
+                <p>25.00$</p>
+                <button class="btn-comprar">Agregar al Carrito</button>
+            </div>
+            <div class="card">
+                <div style="height: 200px; background: #f9f9f9; margin-bottom: 10px;"></div>
+                <h3>Midnight Sandalwood</h3>
+                <p>28.00$</p>
+                <button class="btn-comprar">Agregar al Carrito</button>
+            </div>
+            <div class="card">
+                <div style="height: 200px; background: #f9f9f9; margin-bottom: 10px;"></div>
+                <h3>Ocean Breeze</h3>
+                <p>22.00$</p>
+                <button class="btn-comprar">Agregar al Carrito</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Galería con Explicación de Uso -->
+    <section id="uso" style="background-color: var(--gris-claro);">
+        <h2>Guía de Cuidado GLOW</h2>
+        <div class="uso-container">
+            <div class="uso-item">
+                <h3>01. El primer encendido</h3>
+                <p>Deja que la cera se derrita hasta los bordes del envase para evitar el efecto túnel.</p>
+            </div>
+            <div class="uso-item" style="background: var(--negro);">
+                <h3>02. Corta la mecha</h3>
+                <p>Mantén la mecha a 5mm antes de cada encendido para una llama limpia y segura.</p>
+            </div>
+            <div class="uso-item">
+                <h3>03. Momento de Pausa</h3>
+                <p>No la mantengas encendida por más de 4 horas seguidas. Disfruta el aroma.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Galería de Videos -->
+    <section id="videos">
+        <h2>Experiencia Visual</h2>
+        <div class="video-grid">
+            <div class="video-placeholder"><i class="fas fa-play"></i> &nbsp; Proceso Artesanal</div>
+            <div class="video-placeholder"><i class="fas fa-play"></i> &nbsp; Unboxing GLOW</div>
+            <div class="video-placeholder"><i class="fas fa-play"></i> &nbsp; Mood de Relajación</div>
+        </div>
+    </section>
+
+    <!-- Formulario de Contacto -->
+    <section id="contacto">
+        <h2>Contáctanos</h2>
+        <form>
+            <input type="text" placeholder="Nombre completo" required>
+            <input type="email" placeholder="Correo electrónico" required>
+            <textarea rows="5" placeholder="Cuéntanos qué necesitas..." required></textarea>
+            <button type="submit" class="btn-comprar">Enviar Mensaje</button>
+        </form>
+    </section>
+
+    <!-- Carrito Flotante -->
+    <div class="carrito-float">
+        <i class="fas fa-shopping-cart"></i> Carrito (0)
+    </div>
+
+    <footer>
+        <p>GLOW - "pause. breathe. glow"</p>
+        <p>&copy; 2026 Todos los derechos reservados.</p>
+    </footer>
+
+</body>
+</html>

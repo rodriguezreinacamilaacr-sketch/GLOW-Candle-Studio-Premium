@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GLOW | Candle Studio Premium</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --white: #FFFFFF;
+            --black: #1A1A1A;
+            --canva-light: #e1d5b9;
+            --canva-dark: #d5b58c;
+            --bg-off-white: #FAF9F6;
+            --card-bg: #FFFFFF;
+            --transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body.dark-mode {
+            --white: #1A1A1A;
+            --black: #FFFFFF;
+            --bg-off-white: #121212;
+            --card-bg: #1E1E1E;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Montserrat', sans-serif; background-color: var(--bg-off-white); color: var(--black); line-height: 1.6; transition: background-color var(--transition), color var(--transition); overflow-x: hidden; }
+        h1, h2, h3, .serif { font-family: 'Playfair Display', serif; }
+
+        /* --- DEGRADADO LINEAL GENERAL 180° --- */
+        .gradient-wrapper {
+            background: linear-gradient(180deg, var(--canva-light) 0%, var(--canva-dark) 100%);
+            transition: var(--transition);
+        }
+        body.dark-mode .gradient-wrapper {
+            background: linear-gradient(180deg, #2D2922 0%, #1A1713 100%);
+        }
+
+        /* --- NAVEGACIÓN --- */
+        nav { 
+            display: flex; justify-content: space-between; align-items: center; 
+            padding: 15px 5%; background: var(--white); position: sticky; 
+            top: 0; z-index: 1000; border-bottom: 1px solid rgba(213, 181, 140, 0.3); 
+        }
+        .logo { font-size: 24px; letter-spacing: 5px; font-weight: 700; text-transform: uppercase; cursor: pointer; }
+        .nav-links { display: flex; list-style: none; gap: 20px; align-items: center; }
+        .nav-links a { text-decoration: none; color: var(--black); font-size: 10px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+        .lang-sub { display: block; font-size: 0.7em; opacity: 0.6; font-weight: 300; text-transform: none; font-family: 'Montserrat'; letter-spacing: 0px; }
+
+        /* --- HERO CON FOTO DE VELA PREMIUM Y FONDO DEGRADADO --- */
+        .hero { 
+            height: 90vh; position: relative; overflow: hidden;
+            display: flex; align-items: center; justify-content: center; text-align: center; color: white;
+        }
+        .hero-bg {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            /* Vela de soya premium en envase esmerilado con fondo degradado estético */
+            background: linear-gradient(180deg, rgba(26, 26, 26, 0.2) 0%, rgba(0, 0, 0, 0.5) 100%), 
+                        url("C:\Users\LENOVO THINKPAD T540\OneDrive\Escritorio\glow c\pexels-photo-54512.jpeg"); 
+            background-size: cover; background-position: center;
+            animation: kenBurns 25s infinite alternate ease-in-out; z-index: -1;
+        }
+        @keyframes kenBurns {
+            0% { transform: scale(1.05) translate(0, 0); }
+            100% { transform: scale(1.15) translate(-1%, -0.5%); }
+        }
+        .hero-content h1 { font-size: clamp(45px, 10vw, 90px); line-height: 1.1; margin-bottom: 15px; text-shadow: 0 4px 25px rgba(0,0,0,0.4); }
+        .hero-content p { letter-spacing: 6px; text-transform: uppercase; font-size: 14px; font-weight: 400; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+
+        /* --- SECCIONES --- */
+        section { padding: 100px 10%; }
+        .section-title { text-align: center; margin-bottom: 60px; }
+        .section-title span { display: block; font-size: 11px; color: var(--black); text-transform: uppercase; letter-spacing: 4px; margin-bottom: 10px; opacity: 0.8; font-weight: 600; }
+
+        /* --- PRODUCTOS Y GRID DE FOTOS --- */
+        .product-grid, .photo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 40px; }
+        .product-card, .photo-card { text-align: center; background: var(--card-bg); padding: 25px; border-radius: 15px; transition: 0.4s; border: 1px solid rgba(0,0,0,0.02); }
+        .product-card:hover, .photo-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
+        .product-img, .photo-img { width: 100%; aspect-ratio: 1/1; overflow: hidden; border-radius: 10px; margin-bottom: 20px; }
+        .product-img img, .photo-img img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s; }
+        .product-card:hover img, .photo-card:hover img { transform: scale(1.05); }
+
+        /* --- HISTORIA DE LA MARCA --- */
+        .story-box { max-width: 800px; margin: 0 auto; text-align: center; background: var(--card-bg); padding: 50px 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+
+        /* --- RITUAL: 8 PASOS EQUILIBRADOS Y ZOOM --- */
+        .ritual-container { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); 
+            gap: 25px; 
+        }
+        .step-box { 
+            background: var(--card-bg); padding: 35px 25px; border-radius: 15px; 
+            text-align: center; cursor: pointer; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s;
+            border: 1px solid rgba(213, 186, 163, 0.3);
+            -webkit-tap-highlight-color: transparent;
+        }
+        .step-box:active, .step-box:hover { 
+            transform: scale(1.06); 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.12); 
+            z-index: 5; 
+        }
+        .step-box i { font-size: 32px; color: var(--canva-dark); margin-bottom: 15px; display: block; }
+        .step-box h4 { font-size: 17px; margin-bottom: 10px; }
+        .step-box p { font-size: 12px; opacity: 0.85; line-height: 1.5; }
+
+        /* --- PAGO --- */
+        .checkout-box { max-width: 550px; margin: 0 auto; background: var(--card-bg); padding: 45px; border-radius: 20px; border: 1px solid rgba(213,186,163,0.3); }
+        .form-input { width: 100%; padding: 14px; margin-bottom: 15px; border: 1px solid rgba(0,0,0,0.1); border-radius: 8px; background: transparent; color: var(--black); font-family: inherit; }
+
+        /* --- BARRA FINAL (CONTACTO E INSTAGRAM) --- */
+        .footer-bar {
+            background: var(--black); color: var(--white); padding: 40px 5%;
+            display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px;
+        }
+        .footer-info a { color: var(--canva-light); text-decoration: none; font-weight: 600; transition: 0.3s; }
+        .footer-info a:hover { opacity: 0.8; }
+
+        /* --- BOTONES --- */
+        .btn-glow { display: inline-block; padding: 14px 35px; background: var(--black); color: var(--white); text-decoration: none; border-radius: 50px; font-size: 11px; text-transform: uppercase; font-weight: 700; cursor: pointer; border: none; transition: 0.3s; text-align: center;}
+        .btn-glow:hover { letter-spacing: 2px; opacity: 0.9; }
+        
+        /* --- ACCIONES FLOTANTES --- */
+        .floating-group { position: fixed; bottom: 30px; right: 25px; display: flex; flex-direction: column; gap: 15px; z-index: 2000; }
+        .f-btn { width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; font-size: 22px; box-shadow: 0 8px 20px rgba(0,0,0,0.15); transition: 0.3s; }
+        .f-whatsapp { background: #25D366; }
+        .f-btn:hover { transform: scale(1.1) rotate(5deg); }
+
+        #cart-sidebar { position: fixed; right: -400px; top: 0; width: 380px; height: 100%; background: var(--white); box-shadow: -10px 0 30px rgba(0,0,0,0.15); z-index: 2001; transition: 0.5s; padding: 40px; display: flex; flex-direction: column; }
+        #cart-sidebar.active { right: 0; }
+
+        @media (max-width: 768px) { #cart-sidebar { width: 100%; } .footer-bar { flex-direction: column; text-align: center; } }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo" onclick="window.location.href='#home'">GLOW</div>
+        <ul class="nav-links">
+            <li><a href="#shop">Tienda<span class="lang-sub">Shop</span></a></li>
+            <li><a href="#story">Nosotros<span class="lang-sub">Our Story</span></a></li>
+            <li><a href="#gallery-photos">Galería<span class="lang-sub">Gallery</span></a></li>
+            <li><a href="#ritual">Ritual<span class="lang-sub">The Ritual</span></a></li>
+            <li><button onclick="toggleDarkMode()" style="background:none; border:none; cursor:pointer; color:inherit; font-size:18px;" title="Cambiar Modo / Toggle Mode"><i class="fas fa-adjust"></i></button></li>
+            <li style="position: relative; cursor: pointer;" onclick="toggleCart()">
+                <i class="fas fa-shopping-bag"></i>
+                <span id="cart-count" style="position:absolute; top:-10px; right:-10px; background:var(--canva-dark); color:white; font-size:10px; padding:2px 6px; border-radius:50%;">0</span>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- BARRA LATERAL DEL CARRITO BILINGÜE -->
+    <div id="cart-sidebar">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:30px;">
+            <h2 class="serif">Tu Bolsa <span class="lang-sub" style="display:inline; font-size:14px;">| Your Bag</span></h2>
+            <i class="fas fa-times" onclick="toggleCart()" style="cursor:pointer; font-size: 18px;"></i>
+        </div>
+        <div id="cart-items-container" style="flex-grow:1; overflow-y:auto;"></div>
+        <div style="border-top: 1px solid #eee; padding-top:20px;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:20px;">
+                <span>Total / Total Amount</span>
+                <strong id="cart-total-amount">$0.00</strong>
+            </div>
+            <button class="btn-glow" style="width:100%;" onclick="window.location.href='#checkout-section'; toggleCart();">Pagar Ahora / Checkout</button>
+        </div>
+    </div>
+
+    <!-- HERO CON VELA DE SOYA MINIMALISTA PREMIUM Y DEGRADADO SUAVE -->
+    <header class="hero" id="home">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <h1>Light your Soul</h1>
+            <p>Ilumina tu Alma</p>
+            <a href="#shop" class="btn-glow" style="margin-top: 35px; background: white; color: black; box-shadow: 0 10px 25px rgba(0,0,0,0.2);">Descubrir / Shop Now</a>
+        </div>
+    </header>
+
+    <!-- ENVOLTORIO CON DEGRADADO GRADIENTE 180° DE CANVA -->
+    <div class="gradient-wrapper">
+
+        <!-- 1. TIENDA -->
+        <section id="shop">
+            <div class="section-title">
+                <span>Colecciones / Collections</span>
+                <h2>Nuestras Velas</h2>
+                <p class="lang-sub" style="font-size:14px;">Cera de Soya Pura y Aceites Esenciales / Pure Soy Wax & Essential Oils</p>
+            </div>
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="product-img"><img src="C:\Users\LENOVO THINKPAD T540\Downloads\IMG_4749.jpg" alt="Vela"></div>
+                    <h3>Forever</h3>
+                    <p style="color: var(--black); font-weight:600; opacity: 0.8;">$18.00</p>
+                    <button class="btn-glow" style="margin-top:15px; font-size: 9px;" onclick="addToCart('Midnight Lavender', 18, 'https://images.unsplash.com/photo-1603006905003-be475563bc59?w=500')">Agregar / Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <div class="product-img"><img src="C:\Users\LENOVO THINKPAD T540\Downloads\IMG_4664.jpg" alt="Vela"></div>
+                    <h3>Amber’s soul</h3>
+                    <p style="color: var(--black); font-weight:600; opacity: 0.8;">$22.00</p>
+                    <button class="btn-glow" style="margin-top:15px; font-size: 9px;" onclick="addToCart('Eucalyptus Spa', 22, 'https://images.unsplash.com/photo-1596433809252-260c2745dfdd?w=500')">Agregar / Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <div class="product-img"><img src="C:\Users\LENOVO THINKPAD T540\Downloads\IMG_4750.jpg" alt="Vela"></div>
+                    <h3>Dandelion</h3>
+                    <p style="color: var(--black); font-weight:600; opacity: 0.8;">$20.00</p>
+                    <button class="btn-glow" style="margin-top:15px; font-size: 9px;" onclick="addToCart('Warm Vanilla', 20, 'https://images.unsplash.com/photo-1572726710708-20bb9a370044?w=500')">Agregar / Add to Cart</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- HISTORIA DE LA MARCA -->
+        <section id="story">
+            <div class="story-box">
+                <span style="font-size: 11px; text-transform: uppercase; letter-spacing: 3px; font-weight: 600;">Nuestra Esencia / Our Manifesto</span>
+                <h2 class="serif" style="font-size: 36px; margin: 15px 0 25px 0;">Hechas para Pausar <br><span style="font-size: 24px; font-style: italic; opacity: 0.7;">Made for Intentional Living</span></h2>
+                <p style="font-size: 15px; max-width: 630px; margin: 0 auto 30px auto; opacity: 0.9; line-height: 1.7;">
+                    GLOW nace para quienes buscan transformar su espacio en un santuario de paz. Diseñamos experiencias aromáticas para almas sensibles, amantes del bienestar y mentes que necesitan un respiro del ruido diario. Cada vela es un recordatorio de que tu paz interior es tu mayor tesoro.
+                    <br><span style="display:block; font-size: 13px; font-style: italic; opacity: 0.7; margin-top: 10px;">
+                    GLOW was born for those looking to transform their space into a sanctuary of peace. We design aromatic experiences for sensitive souls, wellness lovers, and minds needing a break from daily noise.
+                    </span>
+                </p>
+                <a href="#ritual" class="btn-glow" style="font-size: 10px;">Conocer el Ritual / The Guide</a>
+            </div>
+        </section>
+
+        <!-- GALERÍA DE FOTOS -->
+        <section id="gallery-photos">
+            <div class="section-title">
+                <span>Inspiración / Aesthetics</span>
+                <h2>Galería de Fotos</h2>
+                <p class="lang-sub" style="font-size:14px;">Capturas de Calma en el Estudio / Visual Calmed Moments</p>
+            </div>
+         <div class="photo-grid">
+                <!-- VELA 1 -->
+                <div class="photo-card">
+                    <div class="photo-img">
+                        <img src="C:\Users\LENOVO THINKPAD T540\OneDrive\Escritorio\glow c\IMG_4665.jpg" alt="Glow Moment">
+                    </div>
+                    <h3 class="serif" style="font-size: 20px; margin-top: 5px; font-weight: 400;">Amber’s Soul</h3>
+                    <p class="lang-sub" style="font-size: 11px; font-style: italic; opacity: 0.7; margin-top: 2px;">Frescura Natural / Botanical Calm</p>
+                </div>
+                <!-- VELA 2 -->
+                <div class="photo-card">
+                    <div class="photo-img">
+                        <img src="C:\Users\LENOVO THINKPAD T540\OneDrive\Escritorio\glow c\IMG_4746.jpg" alt="Glow Moment">
+                    </div>
+                    <h3 class="serif" style="font-size: 20px; margin-top: 5px; font-weight: 400;">Dandelion</h3>
+                    <p class="lang-sub" style="font-size: 11px; font-style: italic; opacity: 0.7; margin-top: 2px;">Abrazo Cálido / Cozy Evenings</p>
+                </div>
+                <!-- VELA 3 -->
+                <div class="photo-card">
+                    <div class="photo-img">
+                        <img src="C:\Users\LENOVO THINKPAD T540\OneDrive\Escritorio\glow c\IMG_4656.jpg" alt="Glow Moment">
+                    </div>
+                    <h3 class="serif" style="font-size: 20px; margin-top: 5px; font-weight: 400;">Moonlight</h3>
+                    <p class="lang-sub" style="font-size: 11px; font-style: italic; opacity: 0.7; margin-top: 2px;">Paz a media noche/ Peace at midnight</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- RITUAL: 8 PASOS TOTALMENTE CONFIGURADOS -->
+        <section id="ritual">
+            <div class="section-title">
+                <span>Guía de Cuidado / Candle Care Guide</span>
+                <h2>El Ritual de Encendido</h2>
+                <p class="lang-sub" style="font-size:14px;">(Presiona cada paso para ampliar / Tap each step to expand)</p>
+            </div>
+            <div class="ritual-container">
+                <!-- PASO 1 -->
+                <div class="step-box">
+                    <i class="fas fa-cut"></i>
+                    <h4 class="serif">1. Corte Perfecto</h4>
+                    <p style="margin-bottom: 8px;">Corta siempre la mecha a 5mm antes de encenderla para evitar humo negro y asegurar una llama limpia.</p>
+                    <hr style="border: 0; border-top: 1px solid rgba(0,0,0,0.08); margin: 8px 0;">
+                    <p style="font-style: italic; opacity: 0.7;"><strong>1. Perfect Trim:</strong> Always trim the wick to 5mm before lighting to avoid black smoke and maintain a clean flame.</p>
+                </div>
+                <!-- PASO 2 -->
+                <div class="step-box">
+                    <i class="fas fa-clock"></i>
+                    <h4 class="serif">2. Memoria de Cera</h4>
+                    <p style="margin-bottom: 8px;">Deja la vela encendida hasta que toda la capa superior se derrita por completo. Evitarás túneles vacíos.</p>
+                    <hr style="border: 0; border-top: 1px solid rgba(0,0,0,0.08); margin: 8px 0;">
+                    <p style="font-style: italic; opacity: 0.7;"><strong>2. Wax Memory:</strong> Let it burn until the entire top layer liquefies to the edges. This prevents tunnel formation.</p>
+                </div>
+                <!-- PASO 3 -->
+                <div class="step-box">
+                    <i class="fas fa-wind"></i>
+                    <h4 class="serif">3. Espacio Seguro</h4>
+                    <p style="margin-bottom: 8px;">Coloca tu vela sobre superficies resistentes al calor y lejos de corrientes de aire para una quema uniforme.</p>
+                    <hr style="border: 0; border-top: 1px solid rgba(0,0,0,0.08); margin: 8px 0;">
+                    <p style="font-style: italic; opacity: 0.7;"><strong>3. Safe Space:</strong> Place on heat-resistant surfaces away from strong air drafts to guarantee an even burn.</p>
+                </div>
+                <!-- PASO 4 -->
+                <div class="step-box">
+                    <i class="fas fa-spa"></i>
+                    <h4 class="serif">4. Tiempo Límite</h4>
+                    <p style="margin-bottom: 8px;">No la dejes encendida más de 4 horas continuas para preservar la calidad e intensidad de los aceites.</p>
+                    <hr style="border: 0; border-top: 1px solid rgba(0,0,0,0.08); margin: 8px 0;">
+                    <p style="font-style: italic; opacity: 0.7;"><strong>4. Time Limit:</strong> Do not burn for more than 4 consecutive hours to protect the raw quality of essential oils.</p>
+                </div>
+                <!-- PASO 5 -->
+                <div class="step-box">
+                    <i class="fas fa-ban"></i>
+                    <h4 class="serif">5. Extinción Correcta</h4>
+                    <p style="margin-bottom: 8px;">No sople la vela. Use una tapa o apagavelas para ahogar la llama; así evitará que el humo dañe el aroma residual.</p>
+                    <hr style="border: 0; border-top: 1px solid rgba(0,0,0,0.08); margin: 8px 0;">
+                    <p style="font-style: italic; opacity: 0.7;"><strong>5. Proper Snuffing:</strong> Do not blow it out. Use a lid or snuffer to submerge the flame, preventing smoke from altering the aroma.</p>
+                </div>
+                <!-- PASO 6 -->
+                <div class="step-box">
+                    <i class="fas fa-eye"></i>
+                    <h4 class="serif">6. Supervisión Activa</h4>
+                    <p style="margin-bottom: 8px;">Mantén la vela a la vista en todo momento. Aléjala por completo del alcance de niños, mascotas y objetos inflamables.</p>
+                    <hr style="border: 0; border-top: 1px solid rgba(0,0,0,0.08); margin: 8px 0;">
+                    <p style="font-style: italic; opacity: 0.7;"><strong>6. Never Unattended:</strong> Keep the burning candle in sight at all times. Keep away from children, pets, and flammable materials.</p>
+                </div>
+                <!-- PASO 7 -->
+                <div class="step-box">
+                    <i class="fas fa-box-open"></i>
+                    <h4 class="serif">7. Almacenaje Puro</h4>
+                    <p style="margin-bottom: 8px;">Guarda tus velas en un lugar fresco, seco y oscuro con su tapa puesta para evitar que acumulen polvo o pierdan fragancia.</p>
+                    <hr style="border: 0; border-top: 1px solid rgba(0,0,0,0.08); margin: 8px 0;">
+                    <p style="font-style: italic; opacity: 0.7;"><strong>7. Storage:</strong> Store candles in a cool, dry, and dark place with the lid on to prevent dust collection and flavor loss.</p>
+                </div>
+                <!-- PASO 8 -->
+                <div class="step-box">
+                    <i class="fas fa-leaf"></i>
+                    <h4 class="serif">8. Conciencia Verde</h4>
+                    <p style="margin-bottom: 8px;">Cuando quede 1cm de cera, limpia el envase de vidrio con agua tibia y jabón para reutilizarlo como maceta o joyero.</p>
+                    <hr style="border: 0; border-top: 1px solid rgba(0,0,0,0.08); margin: 8px 0;">
+                    <p style="font-style: italic; opacity: 0.7;"><strong>8. Upcycle Jar:</strong> When 1cm of wax remains, clean the jar with warm soapy water to reuse it beautifully.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- GALERÍA DE VIDEOS (COMPACTA Y CORREGIDA) -->
+        <section id="gallery-videos" style="padding: 60px 10%;">
+            <div class="section-title" style="margin-bottom: 40px;">
+                <span>Visual Mood / Motion</span>
+                <h2>Galería de Videos</h2>
+                <p class="lang-sub" style="font-size:14px;">Atmósferas en movimiento / Ambient Clips</p>
+            </div>
+            
+            <!-- Contenedor centrado y más estrecho para que los videos no se expandan gigante -->
+            <div style="max-width: 650px; margin: 0 auto;">
+                <div class="video-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                    
+                    <!-- VIDEO 1 -->
+                    <div class="vid-card">
+                        <video src="file:///C:/Users/LENOVO THINKPAD T540/Downloads/58A8B101-2BD1-47A7-A817-02DDBFF09DDA.MP4" 
+                               style="width:100%; height:100%; object-fit:cover;" 
+                               autoplay loop muted playsinline></video>
+                    </div>
+                    
+                    <!-- VIDEO 2 -->
+                    <div class="vid-card">
+                        <video src="file:///C:/Users/LENOVO THINKPAD T540/Downloads/24BB3952-38A4-4015-B415-715E4130FA91.MP4" 
+                               style="width:100%; height:100%; object-fit:cover;" 
+                               autoplay loop muted playsinline></video>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN DE COMPRA -->
+        <section id="checkout-section">
+            <div class="checkout-box">
+                <h2 class="serif" style="text-align: center;">Finalizar Pedido</h2>
+                <p class="lang-sub" style="text-align: center; margin-bottom: 20px;">Pago Seguro / Secure Checkout</p>
+                <form onsubmit="processPayment(event)">
+                    <input type="text" class="form-input" placeholder="Nombre Completo / Full Name" required>
+                    <input type="email" class="form-input" placeholder="Correo Electrónico / Email Address" required>
+                    <input type="text" id="card-num" class="form-input" placeholder="Número de Tarjeta / Card Number" maxlength="19" required>
+                    <div style="display:flex; gap:10px;">
+                        <input type="text" class="form-input" placeholder="MM/YY" maxlength="5" required>
+                        <input type="password" class="form-input" placeholder="CVV" maxlength="3" required>
+                    </div>
+                    <div style="background: rgba(0,0,0,0.05); padding: 20px; border-radius: 10px; margin-bottom: 20px; text-align: center;">
+                        <span style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px;">Total a pagar / Total:</span><br>
+                        <strong id="checkout-total" style="font-size: 22px;">$0.00</strong>
+                    </div>
+                    <button type="submit" class="btn-glow" style="width: 100%; padding: 18px;">Confirmar Compra / Confirm Order</button>
+                </form>
+            </div>
+        </section>
+        
+    </div> <!-- FIN DEL DEGRADADO -->
+
+    <!-- ACCIONES FLOTANTES (SOLO WHATSAPP) -->
+    <div class="floating-group">
+        <a href="https://wa.me/tu_numero" target="_blank" class="f-btn f-whatsapp" title="Escríbenos / WhatsApp Us"><i class="fab fa-whatsapp"></i></a>
+    </div>
+
+    <!-- BARRA FINAL BILINGÜE -->
+    <div class="footer-bar">
+        <div class="footer-info">
+            <p style="font-size: 13px; font-weight: 600; letter-spacing: 1px;">SÍGUENOS / FOLLOW US</p>
+            <a href="https://instagram.com/glowwcandle_" target="_blank" style="font-size: 18px; font-family: 'Playfair Display', serif; font-style: italic;">
+                <i class="fab fa-instagram"></i> @glowwcandle_
+            </a>
+        </div>
+        <div class="footer-info" style="text-align: right;">
+            <p style="font-size: 12px; opacity: 0.8; margin-bottom: 5px;">¿Preguntas o pedidos especiales? / Special orders?</p>
+            <a href="mailto:contacto@glowcandle.com" style="font-size: 12px; text-transform: uppercase; letter-spacing: 2px;">Contáctanos / Contact Studio →</a>
+        </div>
+    </div>
+
+    <footer style="padding: 25px; text-align: center; opacity: 0.5; font-size: 9px; letter-spacing: 2px; background: #111; color: #fff;">
+        PAUSE. BREATHE. GLOW. &copy; 2026 | TODOS LOS DERECHOS RESERVADOS / ALL RIGHTS RESERVED
+    </footer>
+
+    <script>
+        let cart = [];
+        function toggleDarkMode() { document.body.classList.toggle('dark-mode'); }
+        function toggleCart() { document.getElementById('cart-sidebar').classList.toggle('active'); }
+
+        function addToCart(name, price, img) {
+            cart.push({ name, price, img, id: Date.now() });
+            updateUI();
+            if(!document.getElementById('cart-sidebar').classList.contains('active')) toggleCart();
+        }
+
+        function removeItem(id) {
+            cart = cart.filter(i => i.id !== id);
+            updateUI();
+        }
+
+        function updateUI() {
+            const container = document.getElementById('cart-items-container');
+            const totalAmount = document.getElementById('cart-total-amount');
+            const cartCount = document.getElementById('cart-count');
+            const checkoutTotal = document.getElementById('checkout-total');
+            let total = 0;
+            container.innerHTML = '';
+            
+            cart.forEach(item => {
+                total += item.price;
+                container.innerHTML += `
+                <div style="display:flex; gap:15px; margin-bottom:15px; align-items:center;">
+                    <img src="${item.img}" style="width:50px; height:50px; border-radius:5px; object-fit:cover;">
+                    <div style="flex-grow:1">
+                        <h4 style="font-size:12px;">${item.name}</h4>
+                        <p style="font-size:11px; color:var(--canva-dark)">$${item.price}.00</p>
+                    </div>
+                    <i class="fas fa-trash" onclick="removeItem(${item.id})" style="cursor:pointer; opacity:0.3; font-size:10px;" title="Eliminar / Remove"></i>
+                </div>`;
+            });
+            cartCount.innerText = cart.length;
+            totalAmount.innerText = `$${total}.00`;
+            checkoutTotal.innerText = `$${total}.00`;
+        }
+
+        function processPayment(e) {
+            e.preventDefault();
+            if(cart.length === 0) return alert("Tu bolsa está vacía / Your bag is empty");
+            const btn = e.target.querySelector('button');
+            btn.innerText = "Procesando / Processing...";
+            setTimeout(() => {
+                alert("¡Gracias por iluminar tu hogar con GLOW! / Thank you for choosing GLOW!");
+                cart = []; updateUI(); e.target.reset(); btn.innerText = "Confirmar Compra / Confirm Order";
+            }, 2000);
+        }
+
+        document.getElementById('card-num').addEventListener('input', (e) => {
+            e.target.value = e.target.value.replace(/[^\d]/g, '').replace(/(.{4})/g, '$1 ').trim();
+        });
+    </script>
+</body>
+</html>
